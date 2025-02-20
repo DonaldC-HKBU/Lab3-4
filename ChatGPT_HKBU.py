@@ -29,4 +29,4 @@ if __name__ == '__main__':
     while True:
         user_input = input("Typing anything to ChatGPT:\t")
         response = ChatGPT_test.submit(user_input)
-        print(response)
+        print(response) 
