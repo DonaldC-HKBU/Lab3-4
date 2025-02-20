@@ -44,23 +44,30 @@ def main():
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("add",add))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    # answer when using /hello
+    dispatcher.add_handler(CommandHandler("hello", hello))
 
     # To start the bot:
     updater.start_polling()
     updater.idle()
 
-def echo(update, context):
-    if update.message.text == 'What is your name?':
-        reply_message = 'I am DonaldC-Bot.'
-        context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
-    else:
-        reply_message = update.message.text.upper()
-        logging.info("Update: " + str(update))
-        logging.info("context: " + str(context))
-        context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
+#def echo(update, context):
+    #if update.message.text == 'What is your name?':
+        #reply_message = 'I am DonaldC-Bot.'
+        #context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
+    #else:
+        #reply_message = update.message.text.upper()
+        #logging.info("Update: " + str(update))
+        #logging.info("context: " + str(context))
+        #context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
+def hello(update: Update, context: CallbackContext) -> None:
+    """Send a message when the command /hello is issued."""
+    msg = context.args[0]
+    update.message.reply_text('Good day,'+ msg +'!')
+
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     update.message.reply_text('Helping you helping you.')
