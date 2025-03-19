@@ -8,6 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: deploy-group # optional: ensure only one action
     steps:
+steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js (or Python, etc.)
+        uses: actions/setup-node@v3  # Use setup-python@v3 for Python projects
+        with:
+          node-version: '14'  # Specify the Node.js version (if applicable)
+
+      - name: Install dependencies
+        run: npm install  # Change this line based on your package manager (e.g., pip install for Python)
+
+      - name: Build the project
+        run: npm run build  # Adjust this command based on your build process
+
+      - name: Install Fly.io CLI
+        run: curl -L <a href="https://fly.io/install.sh" class="underline" target="_blank">Click this URL</a> | sh
+
       - name:  Deploy to Fiy.io
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
