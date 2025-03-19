@@ -5,27 +5,12 @@ on:
       - main # change to main
 jobs:
   deploy:
+    name: APp deploy
     runs-on: ubuntu-latest
 
-  steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js (or Python, etc.)
-        uses: actions/setup-node@v3  # Use setup-python@v3 for Python projects
-        with:
-          node-version: '14'  # Specify the Node.js version (if applicable)
-
-      - name: Install dependencies
-        run: npm install  # Change this line based on your package manager (e.g., pip install for Python)
-
-      - name: Build the project
-        run: npm run build  # Adjust this command based on your build process
-
-      - name: Install Fly.io CLI
-        run: curl -L <a href="https://fly.io/install.sh" class="underline" target="_blank">Click this URL</a> | sh
-
-      - name:  Deploy to Fiy.io
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: flyctl deploy --remote-only
+    steps:
+    - uses: actions/checkout@v3
+    - uses: superfly/flyctl-actions/setup-flyctl@master
+    - run: flyctl deploy --remote-only
+      env:
+        FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
