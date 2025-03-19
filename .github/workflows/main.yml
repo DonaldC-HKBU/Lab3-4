@@ -6,9 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    concurrency: deploy-group # optional: ensure only one action
-    steps:
-steps:
+
+  steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
