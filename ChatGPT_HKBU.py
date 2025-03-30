@@ -4,18 +4,22 @@ import requests
 import logging
 from urllib.parse import urlparse
 logging.basicConfig(level=logging.INFO)
+from dotenv import load_dotenv 
+load_dotenv('token.env')
 
 class HKBU_ChatGPT():
     def submit(self,message):
         conversation = [{"role": "user","content": message}]
         url = "https://genai.hkbu.edu.hk/general/rest/deployments/gpt-4-o-mini/chat/completions?api-version=2024-05-01-preview"
         try:
-            chatgpt_token = os.environ['CHATGPT_TOKEN2']
+            #chatgpt_token = os.environ['CHATGPT_TOKEN2']
+            #used for docker below
+            chatgpt_token = os.getenv('GPT_ACCESS_TOKEN')
             logging.info("CHATGPT_TOKEN: %s", chatgpt_token)  # Log the token
         except KeyError:
             logging.error("CHATGPT_TOKEN environment variable not set.")
 
-        headers = { 'Content-Type': 'application/json','api-key': os.environ['CHATGPT_TOKEN2'] }
+        headers = { 'Content-Type': 'application/json','api-key':os.getenv('GPT_ACCESS_TOKEN') }
         payload = { 'messages': conversation }
 
         # Validate the URL

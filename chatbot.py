@@ -6,17 +6,25 @@ import logging
 import redis
 import os
 import requests
+from dotenv import load_dotenv 
+load_dotenv('token.env')
+
 def main():
     # Load your token and create an Updater for your Bot
     #config = configparser.ConfigParser()
     #config.read('config.ini')
-    #updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
-    updater = Updater(token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True)
+    #updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True) - used for config.ini
+    #updater = Updater(token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True) - used for fly.io
+    #used for docker below
+    updater = Updater(token=(os.getenv('TELEGRAM_ACCESS_TOKEN')), use_context=True)
+
     dispatcher = updater.dispatcher
     global redis1
     redis_host = "redis-18364.c1.asia-northeast1-1.gce.redns.redis-cloud.com"
     redis_port = 18364
-    redis_password = os.environ['REDIS_PASSWORD'] 
+    #redis_password = os.environ['REDIS_PASSWORD'] 
+    #used for docker below
+    redis_password = os.getenv('REDIS_ACCESS_TOKEN')
     redis1 = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password)
     # You can set this logging module, so you will know when
     # and why things do not work as expected Meanwhile, update your config.ini as:

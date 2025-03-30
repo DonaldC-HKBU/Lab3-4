@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for lab5-24475513-2 on 2025-03-19T09:59:03+08:00
+# fly.toml app configuration file generated for lab5-24475513-2-lab7 on 2025-03-31T02:14:38+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'lab5-24475513-2'
+app = 'lab5-24475513-2-lab7'
 primary_region = 'hkg'
 
 [build]
@@ -31,6 +31,3 @@ primary_region = 'hkg'
 
 [[vm]]
   size = 'shared-cpu-1x'
-  memory = '256mb'
-  cpu_kind = 'shared'
-  cpus = 1
